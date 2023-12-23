@@ -2,7 +2,8 @@ import {React, useState} from "react";
 import { StyleSheet, Text, View, TextInput, SafeAreaView, Button, Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from "@react-navigation/native";
-import auth from "@react-native-firebase/auth"
+import auth from "@react-native-firebase/auth";
+import BasePage from "./BasePage";
 
 
 const LoginScreen = ({}) => {
@@ -38,7 +39,7 @@ const LoginScreen = ({}) => {
   };
 
   return(
-    <SafeAreaView style={styles.container}>
+    <BasePage>
       <StatusBar style="auto" />
       <View style ={styles.headView}>
         <Text style={styles.textHead}>Welcome to the Notes APP!</Text>
@@ -85,18 +86,11 @@ const LoginScreen = ({}) => {
         </Button>
         
       </View>
-    </SafeAreaView>
+    </BasePage>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#c29470',
-      padding:30,
-      justifyContent: 'center-around',
-    },
-
     headView:{
       flex:0.45,
     },
@@ -113,14 +107,12 @@ const styles = StyleSheet.create({
     },
 
     textInputStyle:{
-      fontSize: 18, 
+      fontSize: 25, 
       marginBottom:20,
       borderWidth:1,
       padding:5,
-      flex:0.1,
       borderRadius:20,
     },
-
   });
 
 export default LoginScreen;

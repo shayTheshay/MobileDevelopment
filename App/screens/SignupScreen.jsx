@@ -1,23 +1,51 @@
 import {React, useState} from "react"; 
 import {View, StyleSheet, SafeAreaView, Text, Button, TextInput, Alert} from 'react-native';
-import {auth,  FirebaseAuthTypes } from '@react-native-firebase/auth';
-import db from "@react-native-firebase/database";
+import {getAuth, createUserWithEmailAndPassword} from '@react-native-firebase/auth';
+import { useNavigation } from "@react-navigation/native";
+import BasePage from "./BasePage";
 
 
-export default SignupScreen= ({navigation})=>{
+
+export default SignupScreen= ({})=>{
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRentered, setPasswordRentered] = useState('');
+    const navigation = useNavigation();
+    
+    const authentication = getAuth();
+
+    const onPressLogInButton =()=>{
+        navigation.navigate('Login', {screen: 'Login'});
+    }
+
+    const onPressSignUpButton= async(email, password, passwordRentered)=>{
+        if(password != passwordRentered){
+        Alert.alert("Mismatch", "make sure that both passwords are the SAME");
+        }else
+            if(email && password && passwordRentered){
+                try{
+                    const response = await createUserWithEmailAndPassword(authentication, email, password);
+                    if(response.user) {
+                        navigation.navigate('Tabs', {screen: 'Tabs'});
+                    }
+                }catch(e){
+                    Alert.alert("This is the error", e.message);
+                }
+            } else
+        {
+            Alert.alert("Error", "Please make sure your details are entered because someinput is empty.")
+        }
+    }
 
     return(
-        <SafeAreaView style={styles.container}>
+        <BasePage>
             <Text style={styles.textHeaderStyle}>Sign up</Text>
             
             <View style={styles.viewTextStyle}>
                 <Text style = {styles.textStyle}>Already a member?</Text>
                 <Button 
                 title = "Log in" 
-                onPress={onPressSignInButton}
+                onPress={onPressLogInButton}
                 color = "#c29470"
                 fontSize = {35}
                 opacity = {0.2}
@@ -30,7 +58,7 @@ export default SignupScreen= ({navigation})=>{
                 <TextInput
                 style={styles.textInputStyle}
                 placeholder="Email"
-                onChangeText={(text) => setEmail(text)}
+                onChangeText={(text)=>setEmail(text)}
                 value ={email}
                 keyboardType="email-address"
                 />    
@@ -52,53 +80,15 @@ export default SignupScreen= ({navigation})=>{
                 titleStyle = {{color: '#00BAD4'}}
                 title= "Sign up"
                 color='#DF826C'
-                onPress = {onPressSignUpButton}
+                onPress = {() => onPressSignUpButton(email, password, passwordRentered)}
                 >
                 </Button>
             </View>
-        </SafeAreaView>
+        </BasePage>
     )
 }
 
-
-
-const onPressSignInButton =()=>{
-    navigation.navigate('Login', {screen: 'Login'});
-}
-
-const onPressSignUpButton= async(email, password, passwordRentered)=>{
-    if((password == passwordRentered) && password && email){
-        try{
-            const response = await auth().createUserWithEmailAndPassword(email, password);
-        
-            if(response.user) {
-                Console.log(response.User);
-            }
-        }catch(e){
-            Alert.alert("This is the error", e);
-        }
-        
-        
-
-    } else
-    {
-        Alert.alert("please make you to check for mismatch in the password, or the input is empty.")
-    }
-}
-
-const createProfile = async (response: FirebaseAuthTypes.UserCredential) => {
-
-}
-
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#c29470',
-        padding:50,
-        
-        justifyContent: 'center-around',
-    },
     textHeaderStyle: {
         fontSize: 50,
         alignSelf:'center'
@@ -112,8 +102,7 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         alignItems:'baseline',
     },
-    viewEnterSingUp:{
-               
+    viewEnterSingUp:{    
         flex:1,
     },
     textInputStyle:{
@@ -122,12 +111,9 @@ const styles = StyleSheet.create({
         borderWidth:1,
         padding:5,
         borderRadius:20,
-       
       },
       textTitleMiddle:{
         paddingStart:10,
 
       }
-  
-
 });
