@@ -1,15 +1,14 @@
 import React from "react"; 
 import {View, StyleSheet, SafeAreaView, Text} from 'react-native';
-import BasePage from "../BasePage";
-
+import MainScreen from '../MainScreenContent';
 
 
 export default NoteMapScreen= ({})=>{
 
     return(
-        <BasePage>
+        <MainScreen>
             <Text style={styles.textStyle}>NoteMap!</Text>
-        </BasePage>
+        </MainScreen>
 
     )
 

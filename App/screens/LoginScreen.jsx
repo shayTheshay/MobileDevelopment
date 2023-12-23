@@ -20,7 +20,7 @@ const LoginScreen = ({}) => {
           password
         );
         if(response.user)
-           navigation.navigate('Tabs', {screen: 'Tabs'})
+          navigation.navigate('Tabs', {screen: 'Tabs'});
         else
           Alert.alert("Please check again as the input was incorrect");
       }catch(e){

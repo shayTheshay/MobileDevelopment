@@ -1,15 +1,14 @@
 import React from "react"; 
 import {View, StyleSheet, SafeAreaView, Text} from 'react-native';
-import BasePage from "../BasePage";
-
+import MainScreen from '../MainScreenContent';
 
 
 export default NoteListScreen= ({})=>{
 
     return(
-        <BasePage>
+        <MainScreen>
             <Text style={styles.textStyle}>NoteList!</Text>
-        </BasePage>
+        </MainScreen>
 
     )
 
