@@ -1,4 +1,7 @@
 {
+  "bundleIdentidier": "com.shaydshay.MobileDevelopement", 
+
+
   "expo": {
     "name": "MobileDevelopement",
     "slug": "MobileDevelopement",
@@ -15,16 +18,32 @@
       "**/*"
     ],
     "ios": {
+      "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": true
     },
     "android": {
+      "googleServicesFile": "google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.shaydshay.MobileDevelopement"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+
+    "plugins": [
+      "@react-native-firebase/app",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+
+    ]
   }
 }
