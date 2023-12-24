@@ -12,13 +12,13 @@ export default SignupScreen= ({})=>{
     const [passwordRentered, setPasswordRentered] = useState('');
     const navigation = useNavigation();
     
-    const authentication = getAuth();
+    const authentication = getAuth(); //needed to be passed for use in firebase(there is another way)
 
     const onPressLogInButton =()=>{
         navigation.navigate('Login', {screen: 'Login'});
     }
 
-    const onPressSignUpButton= async(email, password, passwordRentered)=>{
+    const onPressSignUpButton= async(email, password, passwordRentered)=>{ //for sign up I used firebase to create a user, else the error is shown with alert
         if(password != passwordRentered){
         Alert.alert("Mismatch", "make sure that both passwords are the SAME");
         }else
@@ -54,7 +54,9 @@ export default SignupScreen= ({})=>{
                 </Button>
             </View>
             <View style={styles.viewEnterSingUp}>
+
                 <Text style={styles.textTitleMiddle}>Enter your email address</Text>
+
                 <TextInput
                 style={styles.textInputStyle}
                 placeholder="Email"
@@ -62,20 +64,25 @@ export default SignupScreen= ({})=>{
                 value ={email}
                 keyboardType="email-address"
                 />    
+
                 <Text style={styles.textTitleMiddle}>Enter your password</Text>
+
                 <TextInput
                 style={styles.textInputStyle}
                 placeholder="Password"
                 onChangeText={(text) =>setPassword(text)}
                 value={password}
                 />
+
                 <Text style={styles.textTitleMiddle}>Renter your password for confirmation</Text>
+
                 <TextInput
                 style={styles.textInputStyle}
                 placeholder="Password"
                 onChangeText={(text) =>setPasswordRentered(text)}
                 value={passwordRentered}
                 />
+
                 <Button 
                 titleStyle = {{color: '#00BAD4'}}
                 title= "Sign up"
@@ -83,6 +90,7 @@ export default SignupScreen= ({})=>{
                 onPress = {() => onPressSignUpButton(email, password, passwordRentered)}
                 >
                 </Button>
+                
             </View>
         </BasePage>
     )

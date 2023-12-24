@@ -6,7 +6,7 @@ import auth from "@react-native-firebase/auth";
 import BasePage from "./BasePage";
 
 
-const LoginScreen = ({}) => {
+const LoginScreen = ({route}) => {
   const [email, setEmail] = useState('');  
   const [password, setPassword] = useState('');
 

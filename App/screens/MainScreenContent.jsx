@@ -3,27 +3,32 @@ import {View, StyleSheet, SafeAreaView, Text, TouchableOpacity} from 'react-nati
 import BasePage from './BasePage';
 import {Ionicons} from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
+import EventEmitter from "react-native-eventemitter";
 
 
-
-export default MainScreen= ({children})=>{
+export default MainScreen= ({children, route})=>{
     const navigation = useNavigation();
 
-
+    // EventEmitter.emit('values', { data: onSubmit });
+    const handleOnSubmit = (title, note) => {
+        console.log(title);
+        console.log(note);
+    }
+    
     const onButtonPressCreateNote=()=>{
-        navigation.navigate('NoteScreen', {screen: 'NoteScreen'})
+        navigation.navigate('NoteScreen', {name: 'noteScreen'})
     }
 
     return(
         <BasePage>
-            <Text style={styles.textStyle}>Welcom User! Great to see you again!</Text>
+            <Text style={styles.textStyle}>Welcome back User!</Text>
             {children}
             <View style={styles.floatingButtonView}>
                 <TouchableOpacity
                 style={styles.floatingButton}
                 onPress={onButtonPressCreateNote}
                 >
-                    <Ionicons name ="add-circle" size={70  } color="black"/>
+                    <Ionicons name ="add-circle" size={70} color="black"/>
                 </TouchableOpacity>
             </View>
         </BasePage>

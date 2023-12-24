@@ -15,37 +15,35 @@ import Ionicons from 'react-native-ionicons';
 
 const Stack = createStackNavigator();
 
-const Stacks =() => {
+const Stacks =() => { // a stack navigator with another navigation => BottomTabsNavigation
   return(
     <Stack.Navigator screenOptions={{
       headerShown :false}}>
       
       <Stack.Screen
-        name= "Login" component={Tabs}
-        />
+        name= "Login" component={LoginScreen}
+      />
 
-        <Stack.Screen
-        name ="Tabs" component={LoginScreen}
-        />
+      <Stack.Screen
+        name ="Tabs" component={Tabs}
+      />
 
-        <Stack.Screen
+      <Stack.Screen
         name ="Signup" component={SignupScreen}                                                                                                                                                                                                                               
-        />
+      />
 
-        <Stack.Screen
+      <Stack.Screen
         name ="NoteScreen" component={NoteScreen}
-        />
+      />
     </Stack.Navigator>
 
-
   );
-
 }
 
 const Tab = createBottomTabNavigator();
 
-
-const Tabs= () => {
+const Tabs= ({route}) => {  // Bottom Tabs Navigation between two specific pages.
+  
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
